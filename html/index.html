@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css'
+    href='https://fonts.googleapis.com/css?family=Heebo:100,300,400,500,700,800,900'>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src='js/jquery-3.6.0.min.js'></script>
+  <script src="js/vue.min.js"></script>
+</head>
+
+<body>
+
+  <style class="hover"></style>
+  <div id="app">
+  </div>
+
+
+  <!-- App Template -->
+  <script type="text/x-template" id="app_template">
+      <div class="main-cont">
+        <section class="cards" id="cards-container">
+        <cards ref="card"
+            v-for="(card, index) in cards"
+                :rank="card.rank"
+                :withCase="card.withCase"
+                :label="card.label"
+                :health="card.health"
+                :images="card.images"
+                :description="card.description"
+                :term="card.term"
+                :attack="card.attack"
+                :colors="card.colors"
+                :isFliped="card.isFliped"
+                :key="card"
+                :index="index"
+                >
+            </cards>
+
+        </section>
+        <section class="buttons">
+          <button v-if="displayOpenAnother" @click="openAnother" class="next-cards">Next Cards</button>
+          <button v-if="displayOpenInventory" @click="openInventory">Open Inventory</button>
+          <button v-if="displayClose" @click="close">Close</button>
+        </section>
+      </div>
+    </script>
+
+  <!-- Cards Template -->
+  <script type="text/x-template" id="cards_template">
+    <div class="flip-cont" @click="flipCard" :class="{ fliped: isFliped, 'with-case': withCase }" @mouseout="mouseOut">
+      <div class="flip-card"></div>
+      <div class="card-cont">
+        <div class="case-cont" :class="{'case-cont-box-shadow': withCase}">
+          <div class="tag-comp" style="color: #333" v-if="withCase">
+            test<br/>aaaa
+          </div>
+          <div class="card" :style="inlineCSS" :class="{shining: isShining, sparkles: isSparkles}">
+            <div class="card-items" :style="backgroundCSS">
+              <div class="ct-head">
+                <div><small style="text-transform: capitalize;">{{ rank }}</small></div>
+                <div class="flex-between" style="margin-bottom: 5px;">
+                  <h3>{{ label }}</h3>
+                  <h3 style="color: rgb(179, 9, 9)">{{ health }} HP ⚔️</h3>
+                </div>
+              </div>
+              <div class="ct-banner" v-html="images2">
+                
+              </div>
+              <div class="ct-content">
+                <div class="sub-content">
+                  {{ description }}
+                </div>
+                <div class="flex-between" style="padding: 30px 15px;">
+                  <h2>⚔️</h2>
+                  <h2>{{ term }}</h2>
+                  <h2>{{ attack }}</h2>
+                </div>
+                <div class="text-footer">
+                  2021 © irsyadf27
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script>
+    $(function () {
+      var $style = $(".hover");
+      $(document).on("mousemove", ".card-cont", function (e) {
+        var $caseCont = $(this).find('.case-cont');
+        var $card = $(this).find('.card');
+        var l = e.offsetX;
+        var t = e.offsetY;
+        var h = $caseCont.height();
+        var w = $caseCont.width();
+        var lp = Math.abs(Math.floor(100 / w * l) - 100);
+        var tp = Math.abs(Math.floor(100 / h * t) - 100);
+        var lp2 = (50 - (Math.abs(Math.floor(100 / w * l) - 100)) / 10) + 5;
+        var tp2 = (50 - (Math.abs(Math.floor(100 / h * t) - 100)) / 10) + 5;
+        var ty = (tp - 50) / 2;
+        var tx = ((lp - 50) * .1) * -1;
+        var bg = `background-position: ${lp}% ${tp}%;`
+        var bg2 = `background-position: ${lp2}% ${tp2}%;`
+        var tf = `transform: rotateX(${ty}deg) rotateY(${tx}deg)`
+        var style = `
+                    .card.active:before { ${bg} }
+                    .card.active:after { ${bg2} } 
+                    .case-cont.active { ${tf} scale(1.2);  }
+                `
+        $(document).find('.active').removeClass('active');
+        $card.addClass("active");
+        $caseCont.addClass("active");
+        $style.html(style);
+      });
+      $(document).on("mouseout", ".card-cont", function () {
+        $(document).find('.active').removeClass('active');
+      });
+    })
+
+  </script>
+  <script type="text/javascript" src="js/cards.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+
+  <!-- Main Entry -->
+  <script type="text/javascript">
+    new Vue({
+      el: '#app',
+      render: h => h(APP),
+    });
+  </script>
+
+</body>
+
+</html>

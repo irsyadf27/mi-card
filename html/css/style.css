@@ -1,0 +1,497 @@
+html {
+  --width-card: 250px;
+  --height-card: 380px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  background-color: #666;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 5%/3.5%;
+  box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.5), 4px 4px 25px -15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  display: block;
+  transform-origin: center;
+  z-index: 10;
+  overflow: hidden;
+  transform: translate3d(0, 0, -1px);
+}
+
+.card > span {
+  position: relative;
+  top: 45%;
+}
+
+.case-cont {
+  transition: all ease 0.1s;
+  height: var(--height-card);
+  width: var(--width-card);
+  transform: translate3d(0, 0, -1px);
+}
+.case-cont-box-shadow {
+  box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.5), 4px 4px 25px -15px rgba(0, 0, 0, 0.3);
+}
+
+.with-case .case-cont {
+  height: calc(var(--height-card) + 100px);
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 10px;
+  background-size: 100% 100%;
+  background-image: url("../case.png");
+}
+
+.with-case .card {
+  height: calc(100% - 105px);
+}
+
+.tag-comp {
+  height: 90px;
+  border-radius: 5px;
+  background-color: #fff;
+  margin-bottom: 13px;
+}
+.card:before,
+.card:after {
+  content: "";
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-repeat: no-repeat;
+}
+.card.shining:before {
+  background-position: 50% 50%;
+  background-size: 300% 300%;
+  animation: holoGradient 15s ease infinite both;
+  background-image: linear-gradient(115deg, var(--color1) 30%, var(--color2) 70%);
+  mix-blend-mode: color-dodge;
+  opacity: 0.8;
+  z-index: 2;
+  filter: brightness(0.75) contrast(1.5);
+}
+
+.card.sparkles:after {
+  opacity: 1;
+  background-image: url("https://assets.codepen.io/13471/sparkles.gif");
+  background-position: center;
+  background-size: 160%;
+  z-index: 2;
+  animation: holoSparkle 15s ease infinite both;
+  filter: brightness(2.25);
+  transition: filter 0.5s ease;
+  mix-blend-mode: screen;
+}
+/* .card:before {
+  background-position: 50% 50%;
+  background-size: 300% 300%;
+  animation: holoGradient 15s ease infinite both;
+  background-image: linear-gradient(115deg,  var(--color1) 30%,  var(--color2) 70%);
+  mix-blend-mode: color-dodge;
+  opacity: 0.8;
+  z-index: 2;
+  filter: brightness(0.75) contrast(1.5);
+}
+
+.card:after {
+  opacity: 1;
+  background-image: url("https://assets.codepen.io/13471/sparkles.gif");
+  background-position: center;
+  background-size: 160%;
+  z-index: 2;
+  animation: holoSparkle 15s ease infinite both;
+  filter: brightness(2.25);
+  transition: filter 0.5s ease;
+  mix-blend-mode: screen;
+} */
+
+.card.active {
+  animation: none;
+}
+
+.case-cont.active {
+  position: relative;
+  z-index: 99;
+}
+
+.card.active:before {
+  opacity: 1;
+  animation: none;
+  transition: none;
+  background-image: linear-gradient(115deg, transparent 15%, var(--color1) 46%, var(--color2) 54%, transparent 85%);
+  opacity: 0.8;
+  filter: brightness(0.75) contrast(1.5);
+}
+
+.card.active:before,
+.card.active:after {
+  animation: none;
+}
+
+.card.active:after {
+  filter: brightness(1.2);
+}
+
+.demo .card:nth-of-type(1),
+.demo .card:nth-of-type(2),
+.demo .card:nth-of-type(3) {
+  width: 10vw;
+  height: 13.8vw;
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.4), 0 25px 15px -10px rgba(0, 0, 0, 0.5);
+  animation: none;
+}
+
+.demo .card:nth-of-type(1):before,
+.demo .card:nth-of-type(1):after,
+.demo .card:nth-of-type(2):before,
+.demo .card:nth-of-type(2):after,
+.demo .card:nth-of-type(3):before,
+.demo .card:nth-of-type(3):after {
+  animation: none;
+  opacity: 1;
+}
+
+.demo .card:nth-of-type(1):before,
+.demo .card:nth-of-type(1):after {
+  display: none;
+}
+
+.demo .card:nth-of-type(2) {
+  background: none;
+}
+.demo .card:nth-of-type(2):before {
+  display: none;
+}
+
+.demo .card:nth-of-type(3) {
+  background: none;
+}
+.demo .card:nth-of-type(3):before {
+  background-position: center;
+}
+.demo .card:nth-of-type(3):after {
+  display: none;
+}
+
+.operator {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 45px;
+}
+
+@keyframes holoSparkle {
+  0%,
+  5%,
+  100% {
+    opacity: 0.2;
+    background-position: 50% 50%;
+  }
+  33% {
+    opacity: 1;
+    background-position: 40% 40%;
+    filter: brightness(1);
+  }
+  45% {
+    opacity: 0.4;
+  }
+  66% {
+    opacity: 1;
+    background-position: 60% 60%;
+    filter: brightness(1);
+  }
+}
+@keyframes holoGradient {
+  0%,
+  100% {
+    opacity: 0.8;
+    background-position: 50% 50%;
+  }
+  16% {
+    opacity: 0.2;
+  }
+  33% {
+    background-position: 100% 100%;
+    opacity: 0.88;
+  }
+  46% {
+    opacity: 0.2;
+  }
+  66% {
+    background-position: 0% 0%;
+    opacity: 0.88;
+  }
+  79% {
+    opacity: 0.2;
+  }
+}
+html,
+body {
+  height: 100%;
+  /* background-color: #fff; */
+  padding: 0;
+  z-index: -1;
+  transform: translate3d(0, 0, 0.1px);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  /* color: white; */
+  /* background-color: #fff; */
+  font-family: "Heebo", sans-serif;
+  height: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+h1 {
+  display: block;
+  margin: 30px 0 60px;
+}
+
+p {
+  margin-top: 5px;
+  font-weight: 200;
+}
+
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+}
+
+.cards {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2000px;
+  position: relative;
+  z-index: 1;
+  transform: translate3d(0.1px, 0.1px, 0.1px);
+}
+
+.cards > div:only-child {
+  margin-left: auto;
+  margin-right: 40px;
+}
+
+.cards .card:nth-child(2),
+.cards .card:nth-child(2):before,
+.cards .card:nth-child(2):after {
+  animation-delay: 0.2s;
+}
+.cards .card:nth-child(3),
+.cards .card:nth-child(3):before,
+.cards .card:nth-child(3):after {
+  animation-delay: 0.4s;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.card.basic {
+  --color1: rgba(255, 255, 0, 0);
+  --color2: rgba(255, 255, 0, 0);
+  --color3: rgba(255, 255, 0, 0);
+  --color4: rgba(255, 255, 0, 0);
+  box-shadow: none;
+}
+
+.card.basic .card-items {
+  border: 6px solid #999;
+}
+
+.card.rare {
+  --color1: #af13ce;
+  --color2: #87a593;
+  --color3: #ffbe33;
+  --color4: #ffcf33;
+}
+.card.rare .card-items {
+  border: 6px solid #f7c41f;
+}
+
+.card.legendary {
+  --color1: #e09a3d;
+  --color2: #41ece4;
+  --color3: #ff9f9f;
+  --color4: #ff7676;
+}
+.card.legendary .card-items {
+  border: 6px solid #e65050;
+}
+
+/* .card.no-effect.active:before, .card.no-effect:after, .card.no-effect:before {
+  background-image: none;
+}
+
+.card.sparkles::before  {
+  background-image: none;
+}
+
+.card.shining::after  {
+  background-image: none;
+} */
+
+.card-items {
+  position: relative;
+  text-align: left;
+  height: 100%;
+  color: #000;
+  background-image: linear-gradient(45deg, var(--color3), var(--color4));
+  font-size: 11px;
+  padding: 5px;
+  /* border-radius: 5%/3.5%; */
+}
+.card-items .ct-head {
+  display: block;
+}
+.card-items .ct-banner img {
+  box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  border: 5px var(--color3) outset;
+}
+.card-items .ct-content {
+  padding-top: 5px;
+}
+.card-items .ct-content .sub-content {
+  padding: 5px;
+  line-height: 10px;
+  color: #fff;
+  font-size: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  text-align: center;
+}
+.card-items .text-footer {
+  font-size: 7px;
+  width: 100%;
+  text-align: center;
+  margin-top: 6px;
+  position: absolute;
+  bottom: 13px;
+  left: 0px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-cont {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.main-cont {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  left: 0px;
+  bottom: calc(50vh - ((var(--height-card) / 2) + 100px));
+}
+
+.buttons button {
+  transition: 0.2s ease;
+  color: #fff;
+  opacity: 0.8;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 8px 12px;
+  border: none;
+  margin: 0px 6px;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  opacity: 1;
+}
+
+.flip-cont {
+  margin: 12px 6px;
+  position: relative;
+  background-color: #333;
+  width: var(--width-card);
+  border-radius: 5%/3.5%;
+  height: var(--height-card);
+  cursor: pointer;
+}
+.flip-cont .flip-card {
+  transition: all 600ms;
+  background-image: url("../back_card.jpg");
+  width: var(--width-card);
+  height: var(--height-card);
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 11;
+  border-radius: 5%/3.5%;
+}
+.flip-cont.fliped {
+  background-color: transparent;
+}
+.flip-cont.fliped .flip-card {
+  visibility: hidden;
+  opacity: 0;
+  transform: rotateY(180deg);
+}
+.flip-cont.fliped .card-cont {
+  transition: all 0.6s 0.3s;
+  visibility: visible;
+  opacity: 1;
+}
+
+@media only screen and (max-width: 1200px) {
+  .cards {
+    transform: scale(0.7);
+  }
+  .buttons {
+    transform: scale(0.8);
+    bottom: calc(50vh - ((var(--height-card) / 2) + 50px));
+  }
+
+  .cards > div:only-child {
+    margin-right: -140px;
+  }
+}
